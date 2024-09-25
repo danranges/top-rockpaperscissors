@@ -4,12 +4,18 @@ const getComputerChoice = () => {
 
 const getHumanChoice = (options: string[]) => {
   const choices: string[] = options
-  const choice = prompt("Choose rock, paper, or scissors:")?.toString()
+  const choice = prompt("Choose rock, paper, or scissors:")
+    ?.toString()
+    .toLowerCase()
+
   if (!choice) {
-    getHumanChoice(choices)
+    return getHumanChoice(choices)
   } else if (!choices.includes(choice)) {
-    getHumanChoice(choices)
+    console.log("Please enter a valid choice:")
+    return getHumanChoice(choices)
   }
+
+  console.log(choice)
   return choice!
 }
 
