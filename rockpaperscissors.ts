@@ -29,8 +29,20 @@ const playRound = () => {
     return
   }
 
-  console.log(humanChoice)
-  console.log(computerChoice)
+  if (
+    (humanChoice === 0 && computerChoice === 2) ||
+    (humanChoice === 1 && computerChoice === 0) ||
+    (humanChoice === 2 && computerChoice === 1)
+  ) {
+    console.log(choices[computerChoice])
+    console.log("You win")
+    return
+  }
+
+  console.log(choices[computerChoice])
+  console.log("You lose")
+
+  return
 
   return
 }
