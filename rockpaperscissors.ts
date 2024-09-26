@@ -15,7 +15,7 @@ const getHumanChoice = (options: string[]) => {
     return getHumanChoice(choices)
   }
 
-  console.log(choice)
+  console.log(`You chose: ${choice}`)
   return choice!
 }
 
@@ -25,8 +25,9 @@ const playRound = () => {
   const computerChoice = getComputerChoice()
 
   if (humanChoice === computerChoice) {
-    console.log("draw")
-    return
+    console.log(`They chose: ${choices[computerChoice]}`)
+    console.log("Draw\n")
+    return [0, 0]
   }
 
   if (
@@ -34,17 +35,37 @@ const playRound = () => {
     (humanChoice === 1 && computerChoice === 0) ||
     (humanChoice === 2 && computerChoice === 1)
   ) {
-    console.log(choices[computerChoice])
-    console.log("You win")
+    console.log(`They chose: ${choices[computerChoice]}`)
+    console.log("You win\n")
+    return [1, 0]
+  }
+
+  console.log(`They chose: ${choices[computerChoice]}`)
+  console.log("You lose\n")
+  return [0, 1]
+}
+
+const game = (humanScore = 0, computerScore = 0) => {
+  const updateScore = (scores: number[]) => {
+    humanScore += scores[0]
+    computerScore += scores[1]
     return
   }
 
-  console.log(choices[computerChoice])
-  console.log("You lose")
+  if (humanScore < 3 && computerScore < 3) {
+    updateScore(playRound())
+    console.log(`You: ${humanScore}`)
+    console.log(`Computer ${computerScore}\n`)
+    return game(humanScore, computerScore)
+  }
 
-  return
+  if (humanScore > computerScore) {
+    console.log("Congrats, you win!\n")
+    return
+  }
 
+  console.log("Sorry, you lose\n")
   return
 }
 
-playRound()
+game()
